@@ -19,6 +19,8 @@ import {
 } from '@loopback/rest';
 import {Lashista} from '../models';
 import {LashistaRepository} from '../repositories';
+import { authenticate } from '@loopback/authentication';
+import { ConfiguracionSeguridad } from '../config/configuracion.seguridad';
 
 export class LashistaController {
   constructor(
@@ -58,6 +60,11 @@ export class LashistaController {
     return this.lashistaRepository.count(where);
   }
 
+  @authenticate({
+    strategy:"auth",
+    options:[ConfiguracionSeguridad.menuLashistaId,ConfiguracionSeguridad.listarAccion]
+  
+  })
   @get('/lashista')
   @response(200, {
     description: 'Array of Lashista model instances',

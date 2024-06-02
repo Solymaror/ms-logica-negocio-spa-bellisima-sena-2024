@@ -19,6 +19,8 @@ import {
 } from '@loopback/rest';
 import {Cliente} from '../models';
 import {ClienteRepository} from '../repositories';
+ 
+ 
 
 export class ClienteController {
   constructor(
@@ -57,7 +59,7 @@ export class ClienteController {
   ): Promise<Count> {
     return this.clienteRepository.count(where);
   }
-
+   
   @get('/cliente')
   @response(200, {
     description: 'Array of Cliente model instances',

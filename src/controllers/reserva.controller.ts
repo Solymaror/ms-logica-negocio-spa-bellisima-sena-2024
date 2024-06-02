@@ -19,6 +19,8 @@ import {
 } from '@loopback/rest';
 import {Reserva} from '../models';
 import {ReservaRepository} from '../repositories';
+import { ConfiguracionSeguridad } from '../config/configuracion.seguridad';
+import { authenticate } from '@loopback/authentication';
 
 export class ReservaController {
   constructor(
@@ -58,6 +60,11 @@ export class ReservaController {
     return this.reservaRepository.count(where);
   }
 
+  @authenticate({
+    strategy:"auth",
+    options:[ConfiguracionSeguridad.menuReservaId,ConfiguracionSeguridad.listarAccion]
+  
+  })
   @get('/reserva')
   @response(200, {
     description: 'Array of Reserva model instances',

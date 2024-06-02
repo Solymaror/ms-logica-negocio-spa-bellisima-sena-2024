@@ -62,7 +62,11 @@ export class ServicioController {
   }
 
   
+@authenticate({
+  strategy:"auth",
+  options:[ConfiguracionSeguridad.menuServicioId,ConfiguracionSeguridad.listarAccion]
 
+})
   @get('/servicio')
   @response(200, {
     description: 'Array of Servicio model instances',

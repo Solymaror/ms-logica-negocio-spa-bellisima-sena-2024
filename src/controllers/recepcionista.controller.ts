@@ -19,6 +19,8 @@ import {
 } from '@loopback/rest';
 import {Recepcionista} from '../models';
 import {RecepcionistaRepository} from '../repositories';
+import { authenticate } from '@loopback/authentication';
+import { ConfiguracionSeguridad } from '../config/configuracion.seguridad';
 
 export class RecepcionistaController {
   constructor(
@@ -57,7 +59,11 @@ export class RecepcionistaController {
   ): Promise<Count> {
     return this.recepcionistaRepository.count(where);
   }
-
+  @authenticate({
+    strategy:"auth",
+    options:[ConfiguracionSeguridad.menuRecepcionistaId,ConfiguracionSeguridad.listarAccion]
+  
+  })
   @get('/recepcionista')
   @response(200, {
     description: 'Array of Recepcionista model instances',

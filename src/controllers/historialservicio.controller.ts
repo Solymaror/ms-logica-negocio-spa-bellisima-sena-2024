@@ -19,6 +19,8 @@ import {
 } from '@loopback/rest';
 import {Historialservicio} from '../models';
 import {HistorialservicioRepository} from '../repositories';
+import { authenticate } from '@loopback/authentication';
+import { ConfiguracionSeguridad } from '../config/configuracion.seguridad';
 
 export class HistorialservicioController {
   constructor(
@@ -58,6 +60,12 @@ export class HistorialservicioController {
     return this.historialservicioRepository.count(where);
   }
 
+
+  @authenticate({
+    strategy:"auth",
+    options:[ConfiguracionSeguridad.menuHistorialServicioId,ConfiguracionSeguridad.listarAccion]
+  
+  })
   @get('/historialservicios')
   @response(200, {
     description: 'Array of Historialservicio model instances',
