@@ -1,3 +1,4 @@
+import { ConfiguracionSeguridad} from './../config/configuracion.seguridad';
 import {
   Count,
   CountSchema,
@@ -19,6 +20,8 @@ import {
 } from '@loopback/rest';
 import {Servicio} from '../models';
 import {ServicioRepository} from '../repositories';
+import { ConfiguracionGeneral } from '../config/configuracion.general';
+import { authenticate } from '@loopback/authentication';
 
 export class ServicioController {
   constructor(
@@ -57,6 +60,8 @@ export class ServicioController {
   ): Promise<Count> {
     return this.servicioRepository.count(where);
   }
+
+  
 
   @get('/servicio')
   @response(200, {
